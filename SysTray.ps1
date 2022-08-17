@@ -1,5 +1,5 @@
 ﻿#Location of Bin folder on IDrive
-$BinLocation = "\\grcorp.guaranteedrate.ad\gri\Information Technology\Software\TechSquad Systray tool\Systray"
+$BinLocation = "\\FQDN\Share"
 
 if (!(Test-Path .\config.json)){
     try{
@@ -13,8 +13,8 @@ if (!(Test-Path .\config.json)){
     }
     Copy-Item ".\bin\sample.json" -Destination ".\config.json"
 
-    $GRA = Read-host "What is your GRA username? Only enter your username."
-    $proper = Read-host "What is your Properrate username? Only enter your username"
+    $GRA = Read-host "What is your Domain 2 username? Only enter your username."
+    $proper = Read-host "What is your Domain 3 username? Only enter your username"
 
     $configuration = Get-Content .\bin\sample.json |ConvertFrom-Json
     $configuration.'Active Directory'[1].Arguements = $configuration.'Active Directory'[1].Arguements.Replace("username",$GRA)
