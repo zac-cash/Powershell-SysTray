@@ -1,0 +1,96 @@
+{
+    "Exchange":  [
+                     {
+                         "Name":  "Exchange Online",
+                         "Type":  "Snippet",
+                         "Location":  "",
+                         "Snippet":  "Import-Module ExchangeOnlineManagement; Connect-ExchangeOnline -Credential (Get-Credential -username $env:username@Consoto.com -message \u0027Please doublecheck your GR UPN\u0027)",
+                         "Arguements":  ""
+                     },
+                     {
+                         "Name":  "On-prem",
+                         "Type":  "Snippet",
+                         "Location":  "",
+                         "Snippet":  "$Session = New-PSSession -ConfigurationName Microsoft.Exchange -verbose -ConnectionUri http://SERVER01.Consoto.com/PowerShell/ -Authentication Kerberos; Import-PSSession $Session -DisableNameChecking",
+                         "Arguements":  ""
+                     }
+                 ],
+    "Tools":  [
+                  {
+                      "Name":  "LAPS",
+                      "Type":  "Script",
+                      "Location":  ".\\bin\\laps.ps1",
+                      "Snippet":  "",
+                      "Arguements":  ""
+                  }
+              ],
+    "Applications":  [
+                         {
+                             "Name":  "Bomgar",
+                             "Type":  "Application",
+                             "Location":  "C:\\Program Files\\Bomgar\\Representative Console\\rate.beyondtrustcloud.com\\bomgar-rep.exe",
+                             "Snippet":  "",
+                             "Arguements":  ""
+                         },
+                         {
+                             "Name":  "Powershell",
+                             "Type":  "Application",
+                             "Location":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                             "Snippet":  "",
+                             "Arguements":  ""
+                         }
+                     ],
+    "Active Directory":  [
+                             {
+                                 "Name":  "ADUC",
+                                 "Type":  "Application",
+                                 "Location":  "C:\\WINDOWS\\system32\\dsa.msc",
+                                 "Snippet":  "",
+                                 "Arguements":  ""
+                             },
+                             {
+                                 "Name":  "Domain 2 ADUC",
+                                 "Type":  "Application",
+                                 "Location":  "C:\\Windows\\System32\\runas.exe",
+                                 "Snippet":  "",
+                                 "Arguements":  "/user:Domain2\\username /savecreds \"mmc C:\\Windows\\System32\\dsa.msc\""
+                             },
+                             {
+                                 "Name":  "Domain 3 ADUC",
+                                 "Type":  "Application",
+                                 "Location":  "C:\\Windows\\System32\\runas.exe",
+                                 "Snippet":  "",
+                                 "Arguements":  "/user:Domain3\\username /savecreds \"mmc C:\\Windows\\System32\\dsa.msc\""
+                             }
+                         ],
+    "Clipboard":  [
+                      {
+                          "Name":  "Network Reset Script - Admin Profile Only",
+                          "Type":  "Snippet",
+                          "Location":  "",
+                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Reset-Win10Network/main/Reset-NetworkConfig.ps1 -UseBasicParsing | Set-Clipboard",
+                          "Arguements":  ""
+                      },
+                      {
+                          "Name":  "Prioritze IPv4 - Admin Profile Only",
+                          "Type":  "CopyToClipboard",
+                          "Location":  ".\\bin\\Prioritize_IPv4.ps1",
+                          "Snippet":  "",
+                          "Arguements":  ""
+                      },
+                      {
+                          "Name":  "Backup Script - User Profile only",
+                          "Type":  "Snippet",
+                          "Location":  "",
+                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Backup-Restore/main/Backup-Computer.ps1 -UseBasicParsing | Set-Clipboard",
+                          "Arguements":  ""
+                      },
+                      {
+                          "Name":  "Restore Script - User Profile only",
+                          "Type":  "Snippet",
+                          "Location":  "",
+                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Backup-Restore/main/Restore-backup.ps1 -UseBasicParsing | Set-Clipboard",
+                          "Arguements":  ""
+                      }
+                  ]
+}
