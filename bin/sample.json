@@ -68,7 +68,7 @@
                           "Name":  "Network Reset Script - Admin Profile Only",
                           "Type":  "Snippet",
                           "Location":  "",
-                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Reset-Win10Network/main/Reset-NetworkConfig.ps1 -UseBasicParsing | Set-Clipboard",
+                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Reset-Win10Network/main/Reset-NetworkConfig.ps1 -UseBasicParsing | Set-Clipboard; write-host 'Script has been placed on clipboard'",
                           "Arguements":  ""
                       },
                       {
@@ -82,14 +82,14 @@
                           "Name":  "Backup Script - User Profile only",
                           "Type":  "Snippet",
                           "Location":  "",
-                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Backup-Restore/main/Backup-Computer.ps1 -UseBasicParsing | Set-Clipboard",
+                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Backup-Restore/main/Backup-Computer.ps1 -UseBasicParsing | Set-Clipboard; write-host 'Script has been placed on clipboard'",
                           "Arguements":  ""
                       },
                       {
                           "Name":  "Restore Script - User Profile only",
                           "Type":  "Snippet",
                           "Location":  "",
-                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Backup-Restore/main/Restore-backup.ps1 -UseBasicParsing | Set-Clipboard",
+                          "Snippet":  "Invoke-RestMethod https://raw.githubusercontent.com/zac-cash/Backup-Restore/main/Restore-backup.ps1 -UseBasicParsing | Set-Clipboard; write-host 'Script has been placed on clipboard'",
                           "Arguements":  ""
                       }
                   ]
