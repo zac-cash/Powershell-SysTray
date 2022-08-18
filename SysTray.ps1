@@ -1,5 +1,6 @@
 ﻿#Location of Bin folder on IDrive
-$BinLocation = "\\FQDN\Share"
+$BinLocation = "\\FQDN\Location"
+$scheduledTaskLocation = ".\bin\Scheduled Task\Start Powershell System Tray.xml"
 
 if (!(Test-Path .\config.json)){
     try{
@@ -13,12 +14,12 @@ if (!(Test-Path .\config.json)){
     }
     Copy-Item ".\bin\sample.json" -Destination ".\config.json"
 
-    $GRA = Read-host "What is your Domain 2 username? Only enter your username."
-    $proper = Read-host "What is your Domain 3 username? Only enter your username"
+    $Domain2 = Read-host "What is your GRA username? Only enter your username."
+    $Domain3 = Read-host "What is your Properrate username? Only enter your username"
 
     $configuration = Get-Content .\bin\sample.json |ConvertFrom-Json
-    $configuration.'Active Directory'[1].Arguements = $configuration.'Active Directory'[1].Arguements.Replace("username",$GRA)
-    $configuration.'Active Directory'[2].Arguements = $configuration.'Active Directory'[2].Arguements.Replace("username",$Proper)
+    $configuration.'Active Directory'[1].Arguements = $configuration.'Active Directory'[1].Arguements.Replace("username",$Domain2)
+    $configuration.'Active Directory'[2].Arguements = $configuration.'Active Directory'[2].Arguements.Replace("username",$Domain3)
 
     $configuration | ConvertTo-Json | Set-Content .\config.json
 
@@ -58,7 +59,12 @@ function New-MenuItem{
         [switch]
         $UpdateOnly = $false,
         [switch]
-        $easterEgg = $false
+        $easterEgg = $false,
+        [switch]
+        $ScheduledTaskOn = $false,
+        [switch]
+        $ScheduledTaskOff = $false
+
     )
 
     #Initialization
@@ -177,6 +183,23 @@ function New-MenuItem{
         })
     }
 
+    if($ScheduledTaskOn -and !$MyScriptPath){
+        $MenuItem | Add-Member -Name Location -Value $Location -MemberType NoteProperty
+        $MenuItem.Add_Click({
+            $Location = $This.Location #Used to find proper path during click event
+
+            $xml = (Get-Content $location | Out-String)
+            Register-ScheduledTask -Xml $xml -TaskName "Start Powershell System Tray"
+
+        })
+    }
+    if($ScheduledTaskOff -and !$MyScriptPath){
+        $MenuItem.Add_Click({
+            Unregister-ScheduledTask -TaskName "Start Powershell System Tray" -Confirm:$false
+        })
+    }
+
+
     if($EasterEgg -and !$MyScriptPath){
         $MenuItem.Add_Click({
             $PlayWav=New-Object System.Media.SoundPlayer
@@ -236,6 +259,16 @@ Foreach ($submenu in $menus){
     }
     $ContextMenu.MenuItems.AddRange($Temp)
 }
+
+#creating on / off buttons for autorun
+$AutoRun = New-Object System.Windows.Forms.MenuItem
+$AutoRun.text = "Auto Run"
+$AutoRunOn = New-MenuItem -name "On" -location $scheduledTaskLocation -ScheduledTaskOn
+$AutoRunOff = New-MenuItem -name "Off" -location $scheduledTaskLocation -ScheduledTaskOff
+$AutoRun.menuitems.add($AutoRunOn)
+$AutoRun.menuitems.add($AutoRunOff)
+$ContextMenu.MenuItems.AddRange($AutoRun)
+
 
 $UpdateBin = New-MenuItem -Name "Update Systray" -UpdateOnly -Location $BinLocation
 $ContextMenu.MenuItems.AddRange($UpdateBin)
